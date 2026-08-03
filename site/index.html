@@ -931,7 +931,7 @@
         resultAreaBad.innerHTML = '<span class="placeholder-text">...</span>';
         myLocArea.innerHTML = '<span class="placeholder-text">...</span>';
 
-        const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
+        const response = await fetch('https://get.geojs.io/v1/ip/geo.js');
         const data = await response.json();
         myLat = parseFloat(data.latitude);
         myLon = parseFloat(data.longitude);
