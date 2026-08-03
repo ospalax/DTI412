@@ -11,3 +11,15 @@ This repo is published as GitHub page:
 which will redirect you to:
 
 - [ospalax.cz/DTI224](https://www.ospalax.cz/DTI224)
+
+---
+
+### Layout
+
+```
+├── README.md
+├── labs/
+└── site/
+    ├── index.html
+    └── wapps/
+```
