@@ -775,7 +775,7 @@
       resultArea.innerHTML = result;
       moneyComment.textContent = comment;
 
-      historyLog.push(`฿${validateValue()} → ${comment.trim()}`);
+      historyLog.push(`฿${validateValue()} → ${result.trim().replace(/[<][/]p[>]/gm, ', ').replace(/<[^>]*>?/gm, '').replace(/,[ ]*$/gm, '')}`);
       renderLog();
     }
 
