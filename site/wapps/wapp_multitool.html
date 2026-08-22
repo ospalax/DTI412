@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WebApp Experiment</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#18bc9c">
   <style>
     * {
       --main-color: #18bc9c;
@@ -290,6 +292,36 @@
 
     .history-list li:last-child {
       border-bottom: none;
+    }
+
+    /* PWA Install Button Styles */
+    #installBtn {
+      display: none; /* Hidden by default */
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 24px;
+      background-color: var(--main-color);
+      color: black;
+      border: 2px solid black;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      z-index: 2000;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      transition: all 0.2s ease;
+    }
+    #installBtn:hover {
+      background-color: black;
+      color: white;
+      border-color: var(--main-color);
+    }
+
+    @media all and (display-mode: standalone) {
+      #installBtn {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -1023,6 +1055,58 @@
         saveState();
         processDistance();
       }
+    });
+  </script>
+
+  <button id="installBtn">Install App</button>
+
+  <!-- PWA & Install Logic -->
+  <script>
+    // 1. Register the Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('Service Worker registered!', reg))
+          .catch(err => console.error('Service Worker registration failed: ', err));
+      });
+    }
+
+    // 2. Handle the Install Button
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      // Update UI to show the install button
+      installBtn.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+
+      // Show the install prompt
+      deferredPrompt.prompt();
+
+      // Wait for the user to respond to the prompt
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      }
+
+      // We've used the prompt, and can't use it again, throw it away
+      deferredPrompt = null;
+      // Hide the button
+      installBtn.style.display = 'none';
+    });
+
+    // hide the button if the app is installed
+    window.addEventListener('appinstalled', () => {
+      installBtn.style.display = 'none';
+      deferredPrompt = null;
+      console.log('PWA was successfully installed');
     });
   </script>
 </body>
