@@ -1,16 +1,16 @@
 # README
 
-## DTI224
+## DTI412
 
 Playing with the javascript.
 
 This repo is published as GitHub page:
 
-- [ospalax.github.io/DTI224](https://ospalax.github.io/DTI224)
+- [ospalax.github.io/DTI412](https://ospalax.github.io/DTI412)
 
 which will redirect you to:
 
-- [ospalax.cz/DTI224](https://www.ospalax.cz/DTI224)
+- [ospalax.cz/DTI412](https://www.ospalax.cz/DTI412)
 
 ---
 
