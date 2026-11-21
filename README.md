@@ -2,7 +2,7 @@
 
 ## DTI412
 
-Playing with the javascript.
+Playing with javascript and django...
 
 This repo is published as GitHub page:
 
@@ -18,8 +18,12 @@ which will redirect you to:
 
 ```
 ├── README.md
-├── labs/
-└── site/
+├── artifacts
+│   └── MultiTool.apk
+├── labs
+│   ├── courseportal
+│   └── training_system
+└── site
     ├── index.html
-    └── wapps/
+    └── wapps
 ```
