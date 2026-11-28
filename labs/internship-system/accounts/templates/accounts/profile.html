@@ -1,0 +1,12 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+    <h2>User Profile</h2>
+    <ul>
+        <li>Username: {{ user.username }}</li>
+        <li>Email: {{ user.email }}</li>
+        <li>Student ID: {{ user.student_id }}</li>
+        <li>Faculty: {{ user.faculty }}</li>
+        <li>Role: {{ role }}</li>
+    </ul>
+{% endblock %}

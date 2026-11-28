@@ -1,10 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard</title>
-</head>
-<body>
+{% extends 'accounts/base.html' %}
+
+{% block content %}
     <h1>Welcome to your Dashboard, {{ user.username }}!</h1>
-    <a href="{% url 'logout' %}">Logout</a>
-</body>
-</html>
+    <hr>
+
+    <!-- Dynamic Role-Based Content -->
+    {% if request.user.groups.all.0.name == 'Student' %}
+        <div style="border: 1px solid black; padding: 10px;">
+            <h3>Student Widget: My Requests</h3>
+            <a href="{% url 'submit_request' %}"><button>+ New Internship Request</button></a>
+            <br><br>
+            <ul>
+                {% for req in requests %}
+                    <li>
+                        <strong>{{ req.company_name }}</strong> - {{ req.position }}
+                        (Status: <em>{{ req.status }}</em>)
+                    </li>
+                {% empty %}
+                    <li>No internship requests submitted yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    {% elif request.user.groups.all.0.name == 'Lecturer' %}
+        <div style="border: 1px solid black; padding: 10px;">
+            <h3>Lecturer Widget: Review Queue Alert</h3>
+            <p>You have pending applications to evaluate.</p>
+            <a href="{% url 'lecturer_dashboard' %}">Go to Full Review Panel</a>
+        </div>
+
+    {% elif request.user.groups.all.0.name == 'Admin' or user.is_superuser %}
+        <div style="border: 1px solid black; padding: 10px;">
+            <h3>Admin Widget: User Controls</h3>
+            <p>Manage system users, groups, and all internship records.</p>
+            <a href="/admin/">Go to Django Admin Panel</a>
+        </div>
+
+    {% else %}
+        <p>Your account is pending role assignment.</p>
+    {% endif %}
+{% endblock %}
