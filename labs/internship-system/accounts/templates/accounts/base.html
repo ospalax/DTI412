@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Internship System</title>
+</head>
+<body>
+    <!-- Universal Navigation Bar -->
+    <nav style="background: #f0f0f0; padding: 10px; margin-bottom: 20px;">
+        <strong>Internship System</strong> |
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}">Dashboard</a> |
+            <a href="{% url 'profile' %}">My Profile</a> |
+
+            {% if request.user.groups.all.0.name == 'Lecturer' or user.is_superuser %}
+                <a href="{% url 'lecturer_dashboard' %}">Review Panel</a> |
+            {% endif %}
+
+            <a href="{% url 'logout' %}">Logout ({{ user.username }})</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+
+    <!-- Global System Messages -->
+    {% if messages %}
+        <ul style="color: #d9534f;">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Page Specific Content Injected Here -->
+    <div style="padding: 10px;">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

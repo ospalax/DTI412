@@ -1,0 +1,25 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+    <h1>Lecturer Review Dashboard</h1>
+    <p>Welcome, {{ user.username }}. You have authorized access to evaluate internship requests.</p>
+
+    <div style="border: 1px solid red; padding: 10px; margin-top: 20px;">
+        <h2>Review Queue</h2>
+        <ul>
+            {% for req in requests %}
+                <li>
+                    <strong>Student:</strong> {{ req.student.username }}<br>
+                    <strong>Company:</strong> {{ req.company_name }}<br>
+                    <strong>Position:</strong> {{ req.position }}<br><br>
+
+                    <a href="{% url 'update_request_status' req.id 'approve' %}"><button style="color: green;">Approve</button></a>
+                    <a href="{% url 'update_request_status' req.id 'reject' %}"><button style="color: red;">Reject</button></a>
+                </li>
+                <br>
+            {% empty %}
+                <li>No pending applications to review.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
