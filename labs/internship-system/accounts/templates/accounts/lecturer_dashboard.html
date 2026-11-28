@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lecturer Dashboard</title>
+</head>
+<body>
+    <h1>Lecturer Review Dashboard</h1>
+    <p>Welcome, {{ user.username }}. You have authorized access to evaluate internship requests.</p>
+
+    <hr>
+    <a href="{% url 'dashboard' %}">Back to Standard Dashboard</a> |
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>

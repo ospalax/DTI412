@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Smart Internship System</title>
+</head>
+<body>
+    <h2>System Login</h2>
+
+    <!-- Display login errors or logout messages -->
+    {% if messages %}
+        <ul style="color: red;">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Log In</button>
+    </form>
+</body>
+</html>
